@@ -12,5 +12,8 @@
 
 template<typename FORCE> 
 inline void forward_euler(Eigen::VectorXd &q, Eigen::VectorXd &qdot, double dt, double mass,  FORCE &force) {
-
+	Eigen::VectorXd f;
+	force(f, q, qdot);
+    q = qdot * dt + q;
+    qdot = f / mass * dt + qdot;
 }
